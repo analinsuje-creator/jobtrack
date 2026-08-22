@@ -1,0 +1,27 @@
+.cta {
+  padding: 64px 0;
+}
+
+.cta-inner {
+  background-color: var(--primary-color);
+  border-radius: var(--radius-lg);
+  padding: 56px 24px;
+  text-align: center;
+  color: #fff;
+}
+
+.cta-inner h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.cta-inner .btn-primary {
+  background-color: #fff;
+  color: var(--primary-color);
+  padding: 14px 32px;
+}
+
+.cta-inner .btn-primary:hover {
+  background-color: var(--primary-light);
+}
