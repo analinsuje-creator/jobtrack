@@ -1,8 +1,13 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { registerUser } from '../services/api'
+import { useAuth } from '../context/AuthContext'
 import './Register.css'
 
 function Register() {
+  const navigate = useNavigate()
+  const { login } = useAuth()
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -11,7 +16,8 @@ function Register() {
   })
 
   const [errors, setErrors] = useState({})
-  const [submitted, setSubmitted] = useState(false)
+  const [serverError, setServerError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -20,28 +26,22 @@ function Register() {
 
   const validate = () => {
     const newErrors = {}
-
-    // Full name
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = 'Full name is required'
-    }
-
-    // Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required'
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required'
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Enter a valid email address'
     }
 
-    // Password
     if (!formData.password) {
       newErrors.password = 'Password is required'
     } else if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters'
     }
 
-    // Confirm password
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password'
     } else if (formData.password !== formData.confirmPassword) {
@@ -51,20 +51,33 @@ function Register() {
     return newErrors
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const validationErrors = validate()
+    setServerError('')
 
+    const validationErrors = validate()
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
-      setSubmitted(false)
       return
     }
 
     setErrors({})
-    // Backend connection comes in Phase 7 — for now, confirm the data is correct
-    console.log('Register form data:', formData)
-    setSubmitted(true)
+    setIsSubmitting(true)
+
+    try {
+      const data = await registerUser({
+        name: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+      })
+
+      login(data) // saves user + token in context and localStorage
+      navigate('/dashboard')
+    } catch (error) {
+      setServerError(error.message)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -74,11 +87,7 @@ function Register() {
         <h1>Create your account</h1>
         <p className="auth-subtitle">Start tracking your job search today.</p>
 
-        {submitted && (
-          <div className="auth-success">
-            Form is valid! (Backend connection comes in Phase 7)
-          </div>
-        )}
+        {serverError && <div className="auth-error">{serverError}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="form-group">
@@ -137,8 +146,8 @@ function Register() {
             {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
           </div>
 
-          <button type="submit" className="btn btn-primary btn-full">
-            Create Account
+          <button type="submit" className="btn btn-primary btn-full" disabled={isSubmitting}>
+            {isSubmitting ? 'Creating account...' : 'Create Account'}
           </button>
         </form>
 

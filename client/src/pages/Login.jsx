@@ -1,15 +1,21 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { loginUser } from '../services/api'
+import { useAuth } from '../context/AuthContext'
 import './Login.css'
 
 function Login() {
+  const navigate = useNavigate()
+  const { login } = useAuth()
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   })
 
   const [errors, setErrors] = useState({})
-  const [submitted, setSubmitted] = useState(false)
+  const [serverError, setServerError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -26,27 +32,33 @@ function Login() {
       newErrors.email = 'Enter a valid email address'
     }
 
-    if (!formData.password) {
-      newErrors.password = 'Password is required'
-    }
+    if (!formData.password) newErrors.password = 'Password is required'
 
     return newErrors
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const validationErrors = validate()
+    setServerError('')
 
+    const validationErrors = validate()
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
-      setSubmitted(false)
       return
     }
 
     setErrors({})
-    // Backend connection comes in Phase 7 — for now, confirm the data is correct
-    console.log('Login form data:', formData)
-    setSubmitted(true)
+    setIsSubmitting(true)
+
+    try {
+      const data = await loginUser(formData)
+      login(data)
+      navigate('/dashboard')
+    } catch (error) {
+      setServerError(error.message)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -56,11 +68,7 @@ function Login() {
         <h1>Welcome back</h1>
         <p className="auth-subtitle">Login to continue tracking your applications.</p>
 
-        {submitted && (
-          <div className="auth-success">
-            Form is valid! (Backend connection comes in Phase 7)
-          </div>
-        )}
+        {serverError && <div className="auth-error">{serverError}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="form-group">
@@ -91,8 +99,8 @@ function Login() {
             {errors.password && <span className="error-text">{errors.password}</span>}
           </div>
 
-          <button type="submit" className="btn btn-primary btn-full">
-            Login
+          <button type="submit" className="btn btn-primary btn-full" disabled={isSubmitting}>
+            {isSubmitting ? 'Logging in...' : 'Login'}
           </button>
         </form>
 
