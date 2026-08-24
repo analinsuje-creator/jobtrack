@@ -53,3 +53,25 @@ export const getMe = (token) => {
     },
   })
 }
+export const createApplication = (applicationData, token) => {
+  return request('/applications', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify(applicationData),
+  })
+}
+
+export const updateApplication = (id, applicationData, token) => {
+  return request(`/applications/${id}`, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify(applicationData),
+  })
+}
+
+export const deleteApplication = (id, token) => {
+  return request(`/applications/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}

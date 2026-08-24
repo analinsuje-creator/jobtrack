@@ -1,0 +1,158 @@
+.apps-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.apps-search {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.apps-search:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.apps-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.apps-filters select {
+  padding: 8px 12px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  background-color: var(--background-color);
+}
+
+.apps-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+/* Desktop table */
+.apps-table-wrapper {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+}
+
+.apps-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.apps-table th {
+  text-align: left;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.apps-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.88rem;
+}
+
+.apps-table tr:last-child td {
+  border-bottom: none;
+}
+
+.apps-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.apps-actions button {
+  background: transparent;
+  color: var(--primary-color);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.apps-actions button.danger {
+  color: var(--danger-color);
+}
+
+/* Mobile cards — hidden on desktop */
+.apps-cards {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .apps-table-wrapper {
+    display: none;
+  }
+
+  .apps-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .apps-card {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+  }
+
+  .apps-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .apps-card-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .apps-card-company {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+
+  .apps-card-meta {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+
+  .apps-card-actions {
+    display: flex;
+    gap: 16px;
+  }
+
+  .apps-card-actions button {
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .apps-card-actions button.danger {
+    color: var(--danger-color);
+  }
+}
+
+@media (max-width: 640px) {
+  .apps-toolbar {
+    flex-direction: column;
+  }
+}
