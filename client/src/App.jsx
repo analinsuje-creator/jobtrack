@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Applications from './pages/Applications'
+import Interviews from './pages/Interviews'
 import ProtectedRoute from './components/ProtectedRoute'
 import './App.css'
 
@@ -26,6 +27,14 @@ function App() {
         element={
           <ProtectedRoute>
             <Applications />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/interviews"
+        element={
+          <ProtectedRoute>
+            <Interviews />
           </ProtectedRoute>
         }
       />

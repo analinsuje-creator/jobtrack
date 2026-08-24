@@ -75,3 +75,32 @@ export const deleteApplication = (id, token) => {
     headers: { Authorization: `Bearer ${token}` },
   })
 }
+export const getInterviews = (token) => {
+  return request('/interviews', {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}
+
+export const createInterview = (interviewData, token) => {
+  return request('/interviews', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify(interviewData),
+  })
+}
+
+export const updateInterview = (id, interviewData, token) => {
+  return request(`/interviews/${id}`, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify(interviewData),
+  })
+}
+
+export const deleteInterview = (id, token) => {
+  return request(`/interviews/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}
