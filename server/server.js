@@ -23,7 +23,8 @@ app.use(helmet())
 // Lock CORS down to just our frontend's origin instead of allowing everything
 const allowedOrigins = [
   'http://localhost:5173',
-  'http://localhost:5174', // in case the default port is busy, per earlier phases
+  'http://localhost:5174',
+  'https://jobtrack-xxxx.vercel.app', // ← replace with your real Vercel URL
 ]
 app.use(
   cors({
