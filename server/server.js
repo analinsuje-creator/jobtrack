@@ -24,7 +24,7 @@ app.use(helmet())
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
-  'https://jobtrack-xxxx.vercel.app', // ← replace with your real Vercel URL
+  'https://jobtrack-lilac-three.vercel.app',
 ]
 app.use(
   cors({
