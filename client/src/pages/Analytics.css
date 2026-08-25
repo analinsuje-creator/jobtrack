@@ -142,4 +142,21 @@
   .bar-row {
     grid-template-columns: 80px 1fr 24px;
   }
+
+  .analytics-panel {
+    padding: 16px;
+  }
+
+  .month-chart {
+    height: 140px;
+    gap: 6px;
+  }
+
+  .month-bar-track {
+    max-width: 24px;
+  }
+
+  .month-label {
+    font-size: 0.68rem;
+  }
 }

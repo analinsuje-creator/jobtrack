@@ -20,17 +20,28 @@ async function request(endpoint, options = {}) {
     },
   }
 
-  const response = await fetch(url, config)
-  const data = await response.json()
+  let response
+  try {
+    response = await fetch(url, config)
+  } catch (networkError) {
+    // fetch() itself throws when the server is unreachable — give a clearer message
+    // than the raw "Failed to fetch" browser error
+    throw new Error('Cannot reach the server. Please check that the backend is running.')
+  }
+
+  let data
+  try {
+    data = await response.json()
+  } catch {
+    throw new Error('Received an unexpected response from the server.')
+  }
 
   if (!response.ok) {
-    // Throw so the calling code's try/catch can handle it
     throw new Error(data.message || 'Something went wrong')
   }
 
   return data
 }
-
 export const registerUser = (userData) => {
   return request('/auth/register', {
     method: 'POST',

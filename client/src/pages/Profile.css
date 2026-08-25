@@ -32,3 +32,8 @@
   font-size: 0.85rem;
   margin-bottom: 20px;
 }
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 18px;
+  }
+}

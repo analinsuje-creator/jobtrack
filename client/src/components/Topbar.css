@@ -10,6 +10,16 @@
   z-index: 50;
 }
 
+@media (max-width: 480px) {
+  .topbar {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .topbar-title {
+    font-size: 1.05rem;
+  }
+}
 .topbar-menu-btn {
   display: none;
   background: transparent;

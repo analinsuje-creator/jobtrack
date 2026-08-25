@@ -1,3 +1,4 @@
+import { useToast } from '../context/ToastContext'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
@@ -8,6 +9,7 @@ import Modal from '../components/Modal'
 import './Settings.css'
 
 function Settings() {
+  const { showToast } = useToast()
   const { token, logout } = useAuth()
   const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
@@ -71,16 +73,16 @@ function Settings() {
   }
 
   const handleDeleteAccount = async () => {
-    setIsDeleting(true)
-    try {
-      await deleteAccount(token)
-      logout()
-      navigate('/')
-    } catch (err) {
-      alert(err.message)
-      setIsDeleting(false)
-    }
+  setIsDeleting(true)
+  try {
+    await deleteAccount(token)
+    logout()
+    navigate('/')
+  } catch (err) {
+    showToast(err.message, 'error')
+    setIsDeleting(false)
   }
+}
 
   return (
     <DashboardLayout title="Settings">

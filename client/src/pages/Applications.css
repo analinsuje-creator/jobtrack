@@ -155,4 +155,20 @@
   .apps-toolbar {
     flex-direction: column;
   }
+
+  .apps-toolbar .btn {
+    width: 100%;
+  }
+
+  .apps-filters {
+    flex-direction: column;
+  }
+
+  .apps-filters select {
+    width: 100%;
+  }
+
+  .apps-filters .btn-text {
+    align-self: flex-start;
+  }
 }

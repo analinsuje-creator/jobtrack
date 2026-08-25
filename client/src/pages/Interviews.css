@@ -103,5 +103,16 @@
 
   .interview-card-actions {
     flex-direction: row;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 375px) {
+  .interview-card-title {
+    font-size: 0.9rem;
+  }
+
+  .interview-card-meta {
+    font-size: 0.78rem;
   }
 }

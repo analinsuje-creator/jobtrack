@@ -1,3 +1,4 @@
+import { useToast } from '../context/ToastContext'
 import { useState, useEffect, useMemo } from 'react'
 import { useAuth } from '../context/AuthContext'
 import {
@@ -15,6 +16,7 @@ import './Applications.css'
 
 function Applications() {
   const { token } = useAuth()
+  const { showToast } = useToast()
   const [applications, setApplications] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -80,31 +82,34 @@ function Applications() {
   }
 
   const handleFormSubmit = async (formData) => {
-    setIsSubmitting(true)
-    try {
-      if (editingApp) {
-        await updateApplication(editingApp._id, formData, token)
-      } else {
-        await createApplication(formData, token)
-      }
-      setModalOpen(false)
-      fetchApplications()
-    } catch (err) {
-      alert(err.message)
-    } finally {
-      setIsSubmitting(false)
+  setIsSubmitting(true)
+  try {
+    if (editingApp) {
+      await updateApplication(editingApp._id, formData, token)
+      showToast('Application updated successfully')
+    } else {
+      await createApplication(formData, token)
+      showToast('Application added successfully')
     }
+    setModalOpen(false)
+    fetchApplications()
+  } catch (err) {
+    showToast(err.message, 'error')
+  } finally {
+    setIsSubmitting(false)
   }
+}
 
-  const handleDeleteConfirm = async () => {
-    try {
-      await deleteApplication(deleteTarget._id, token)
-      setDeleteTarget(null)
-      fetchApplications()
-    } catch (err) {
-      alert(err.message)
-    }
+ const handleDeleteConfirm = async () => {
+  try {
+    await deleteApplication(deleteTarget._id, token)
+    setDeleteTarget(null)
+    fetchApplications()
+    showToast('Application deleted')
+  } catch (err) {
+    showToast(err.message, 'error')
   }
+}
 
   return (
     <DashboardLayout title="Applications">

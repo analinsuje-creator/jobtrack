@@ -1,3 +1,4 @@
+import { useToast } from '../context/ToastContext'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import {
@@ -21,6 +22,7 @@ const typeIcons = {
 }
 
 function Interviews() {
+  const { showToast } = useToast()
   const { token } = useAuth()
   const [interviews, setInterviews] = useState([])
   const [loading, setLoading] = useState(true)
@@ -58,31 +60,34 @@ function Interviews() {
   }
 
   const handleFormSubmit = async (formData) => {
-    setIsSubmitting(true)
-    try {
-      if (editingInterview) {
-        await updateInterview(editingInterview._id, formData, token)
-      } else {
-        await createInterview(formData, token)
-      }
-      setModalOpen(false)
-      fetchInterviews()
-    } catch (err) {
-      alert(err.message)
-    } finally {
-      setIsSubmitting(false)
+  setIsSubmitting(true)
+  try {
+    if (editingInterview) {
+      await updateInterview(editingInterview._id, formData, token)
+      showToast('Interview updated successfully')
+    } else {
+      await createInterview(formData, token)
+      showToast('Interview added successfully')
     }
+    setModalOpen(false)
+    fetchInterviews()
+  } catch (err) {
+    showToast(err.message, 'error')
+  } finally {
+    setIsSubmitting(false)
   }
+}
 
   const handleDeleteConfirm = async () => {
-    try {
-      await deleteInterview(deleteTarget._id, token)
-      setDeleteTarget(null)
-      fetchInterviews()
-    } catch (err) {
-      alert(err.message)
-    }
+  try {
+    await deleteInterview(deleteTarget._id, token)
+    setDeleteTarget(null)
+    fetchInterviews()
+    showToast('Interview deleted')
+  } catch (err) {
+    showToast(err.message, 'error')
   }
+}
 
   // Split into upcoming (today or later) and past — upcoming shown first, per spec
   const now = new Date()
