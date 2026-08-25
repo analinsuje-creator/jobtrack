@@ -14,3 +14,9 @@
 .dashboard-content {
   padding: 28px;
 }
+
+@media (max-width: 480px) {
+  .dashboard-content {
+    padding: 16px;
+  }
+}
