@@ -1,0 +1,68 @@
+.settings-section {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 20px;
+  max-width: 700px;
+  box-shadow: var(--shadow-sm);
+}
+
+.settings-section h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.settings-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.appearance-preview {
+  display: flex;
+  gap: 12px;
+}
+
+.appearance-option {
+  padding: 10px 20px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--background-color);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.appearance-option.active {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: var(--primary-light);
+}
+
+.appearance-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.settings-danger {
+  border-color: #fecaca;
+}
+
+.settings-danger h3 {
+  color: var(--danger-color);
+}
+
+.settings-confirm-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.settings-confirm-input:focus {
+  outline: none;
+  border-color: var(--danger-color);
+}

@@ -104,3 +104,32 @@ export const deleteInterview = (id, token) => {
     headers: { Authorization: `Bearer ${token}` },
   })
 }
+export const getProfile = (token) => {
+  return request('/users/profile', {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}
+
+export const updateProfile = (profileData, token) => {
+  return request('/users/profile', {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify(profileData),
+  })
+}
+
+export const changePassword = (passwordData, token) => {
+  return request('/users/change-password', {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify(passwordData),
+  })
+}
+
+export const deleteAccount = (token) => {
+  return request('/users/account', {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}

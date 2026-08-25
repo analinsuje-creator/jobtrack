@@ -111,3 +111,53 @@ img {
 .btn-text:hover {
   color: var(--primary-color);
 }
+/* ===== Dark mode — activated when <html data-theme="dark"> ===== */
+[data-theme='dark'] {
+  --primary-color: #6366f1;
+  --primary-hover: #818cf8;
+  --primary-light: #312e81;
+
+  --background-color: #111827;
+  --surface-color: #1f2937;
+  --text-color: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --border-color: #374151;
+
+  --success-color: #4ade80;
+  --danger-color: #f87171;
+  --warning-color: #fbbf24;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .stat-icon-success { background-color: #14532d; }
+[data-theme='dark'] .stat-icon-warning { background-color: #78350f; }
+[data-theme='dark'] .stat-icon-danger { background-color: #7f1d1d; }
+
+[data-theme='dark'] .badge-applied { background-color: #312e81; color: #a5b4fc; }
+[data-theme='dark'] .badge-review { background-color: #78350f; color: #fcd34d; }
+[data-theme='dark'] .badge-interview { background-color: #1e3a8a; color: #93c5fd; }
+[data-theme='dark'] .badge-offer { background-color: #14532d; color: #86efac; }
+[data-theme='dark'] .badge-rejected { background-color: #7f1d1d; color: #fca5a5; }
+[data-theme='dark'] .badge-withdrawn { background-color: #374151; color: #d1d5db; }
+
+[data-theme='dark'] .auth-success,
+[data-theme='dark'] .profile-success {
+  background-color: #14532d;
+  border-color: #166534;
+}
+
+[data-theme='dark'] .auth-error,
+[data-theme='dark'] .profile-error {
+  background-color: #7f1d1d;
+  border-color: #991b1b;
+}
+
+/* Smooth transition when switching themes */
+body, .sidebar, .topbar, .stat-card, .apps-table-wrapper, .apps-card,
+.interview-card, .analytics-panel, .settings-section, .profile-card,
+.modal-box, .auth-card {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}

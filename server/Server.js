@@ -5,6 +5,7 @@ import connectDB from './config/db.js'
 import authRoutes from './routes/authRoutes.js'
 import applicationRoutes from './routes/applicationRoutes.js'
 import interviewRoutes from './routes/interviewRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 dotenv.config()
@@ -23,6 +24,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/applications', applicationRoutes)
 app.use('/api/interviews', interviewRoutes)
+app.use('/api/users', userRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
