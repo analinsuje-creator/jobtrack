@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
 /* ===== CSS Variables — our design system ===== */
 :root {
   /* Colors */
@@ -27,7 +28,33 @@
 
   /* Font */
   --font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+
+  /* ===== Landing page design tokens (modern SaaS look) ===== */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --ink: #0b1023;
+  --ink-soft: #565b72;
+  --landing-bg: #f5f6fb;
+  --landing-border: rgba(15, 23, 42, 0.08);
+
+  --gradient-brand: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #06b6d4 100%);
+
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 20px 60px -15px rgba(79, 70, 229, 0.25);
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
 
 * {
   margin: 0;
